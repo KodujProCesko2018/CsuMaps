@@ -1,14 +1,9 @@
 namespace Lansky.CsuMaps.Api
 
-open System
-open System.Collections.Generic
-open System.IO
-open System.Linq
-open System.Threading.Tasks
 open Microsoft.AspNetCore
 open Microsoft.AspNetCore.Hosting
-open Microsoft.Extensions.Configuration
-open Microsoft.Extensions.Logging
+
+open TownProcessor
 
 module Program =
     let exitCode = 0
@@ -21,6 +16,7 @@ module Program =
 
     [<EntryPoint>]
     let main args =
+        importTownData()
         BuildWebHost(args).Run()
 
         exitCode

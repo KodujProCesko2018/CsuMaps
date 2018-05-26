@@ -1,31 +1,17 @@
 ﻿namespace Lansky.CsuMaps.Api.Controllers
 
-open System
-open System.Collections.Generic
-open System.Linq
-open System.Threading.Tasks
+open Entities
+open TownService
 open Microsoft.AspNetCore.Mvc
 
-[<Route("api/[controller]")>]
-type ValuesController () =
+[<Route("api")>]
+type PopulationController () =
     inherit Controller()
+    
+    [<HttpGet("towns/{townId}/{year}")>]
+    member this.GetById (townId : int32) (year : int32) : Town =
+        getTownData year townId
 
-    [<HttpGet>]
-    member this.Get() =
-        [|"value1"; "value2"|]
-
-    [<HttpGet("{id}")>]
-    member this.Get(id:int) =
-        "value"
-
-    [<HttpPost>]
-    member this.Post([<FromBody>]value:string) =
-        ()
-
-    [<HttpPut("{id}")>]
-    member this.Put(id:int, [<FromBody>]value:string ) =
-        ()
-
-    [<HttpDelete("{id}")>]
-    member this.Delete(id:int) =
-        ()
+    [<HttpGet("towns/{townName}/{year}")>]
+    member this.GetByName (townName : string) (year : int32) : Town =
+        townName |> getIdByName |> (getTownData year)
